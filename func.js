@@ -234,3 +234,27 @@ function countChar(str, char, caseSensitive){
 }
 
 console.log(countChar("kakkerlak", "K", true)); // => 4
+
+
+function fibonacciNonRicorsivo(number){
+    let f0 = 0;
+    let f1 = 1;
+    let f = 0;
+
+    if (number==0) {
+        return f0;
+    }
+    if (number==1) {
+        return f1;
+    }
+
+    for (let i = 2; i <= number; i++) {
+        f = f1 + f0;
+        f0 = f1;
+        f1 = f;
+    }
+
+    return f
+}
+
+console.log(fibonacciNonRicorsivo(100))
