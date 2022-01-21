@@ -114,6 +114,10 @@ for (let k = 0; k < 10; k = k + 1) {
 
 // k-=3;
 
+// k = k * 2;
+
+// k*=2;
+
 
 let y = 10;
 
@@ -147,7 +151,7 @@ while (true) {
 }
 
 for (let index = ''; index !== '########'; index += '#') {
-    console.log(index);   
+    console.log(index);
 }
 
 
@@ -157,16 +161,16 @@ for (let i = 0; i < 7; i++) {
     console.log(stringa)
 }
 
-for (let g = '#'; g < '########'; g+='#'){
+for (let g = '#'; g < '########'; g += '#') {
     console.log(g);
-    if (g=== '#######') {
+    if (g === '#######') {
         break;
     }
-  
+
 }
 
 for (let i = 1; i <= 100; i++) {
-    
+
     let str = '';
     if (i % 3 === 0) {
         str += 'Fizz'
@@ -179,11 +183,55 @@ for (let i = 1; i <= 100; i++) {
 
 let grid = '';
 
-for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-        grid += '#'
+let size = 20;
+
+for (let i = 0; i < size; i++) {
+    for (let j = 0; j < size; j++) {
+        if (i % 2 === 0) {
+            if (j % 2 === 0) {
+                grid += ' ';
+            } else {
+                grid += '#';
+            }
+        } else {
+            if (j % 2 === 0) {
+                grid += '#';
+            } else {
+                grid += ' ';
+            }
+        }
     }
-    grid+='\n'
+    grid += '\n'
 }
 
-console.log(grid);
+
+let grid2 = '';
+
+let size2 = 20;
+
+for (let i = 0; i < size2; i++) {
+    for (let j = 0; j < size2; j++) {
+        grid2 += (i % 2 === 0) ? ((j % 2 === 0) ? " " : "#") : ((j % 2 === 0) ? "#" : " ");
+    }
+    grid2 += '\n'
+}
+
+console.log(grid2);
+
+
+let type = 37
+
+switch (type) {
+    case 0:
+        console.log("Hai comprato un cosmetico")
+        break;
+    case 1:
+        console.log("Hai comprato un balsamo")
+        break;
+    case 2:
+        console.log("Hai comprato uno shampoo")
+        break;
+    default:
+        console.log("errore di tipologia")
+        break;
+}
