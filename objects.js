@@ -342,3 +342,40 @@ function nth(list, number){
 }
 
 console.log(nth(arrayToList([1,2,3]), 1));
+
+function DeepCompare(value1, value2){
+  if(typeof value1 !== "object" || typeof value2 !== "object"){
+    return value1 === value2;
+  }
+  else if(typeof value1 === "object" && typeof value2 === "object"){
+
+    let value1Array = Object.keys(value1);
+    let value2Array = Object.keys(value2);
+
+    if (value1Array.length != value2Array.length) {
+      return false;
+    }
+    else{
+      let allValues1 = Object.values(value1);
+      let allValues2 = Object.values(value2);
+      for (let i = 0; i < value1Array.length; i++) {
+        if (value1Array[i] != value2Array[i]) {
+          return false;
+        }
+        else
+        {
+          if (typeof allValues1[i] !== typeof allValues2[i]) {
+            return false
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+}
+
+let obj = {here: {is: "an"}, object: 2};
+console.log(DeepCompare(obj, {here: 2, object: 2}));
+
+
