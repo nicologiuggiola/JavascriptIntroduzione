@@ -223,7 +223,7 @@ var JOURNAL = [
   function ARange(start, end, step = 1) {
     let funcArray = [start]
     let nextN = start;
-    if (step > 0) {
+    if (step >= 0) {
       for (let i = start; i < end; i++) {
 
           nextN = nextN + step;
@@ -234,7 +234,7 @@ var JOURNAL = [
         }
         return funcArray;
     }
-    else{
+    else if (step < 0){
       for (let i = end; i < start; i++) {
 
           nextN = nextN + step;
@@ -248,50 +248,43 @@ var JOURNAL = [
     
 }
 
+// let start = step > 0 ? min:max;
+
   console.log(ARange(1,10))
 
-  function TheSumOf(array){
-      let result = 0;
-      for (let i = 0; i < array.length; i++) {
-          const element = array[i];
-          result = result + element;
+  function TheSumOf(...array){
+      let result = array[0];
+      for (let i = 1; i < array.length; i++) {
+          //const element = array[i];
+          result += array[i];
       }
 
       return result;
   }
 
-  console.log(TheSumOf(ARange(1,10)));
+  console.log(TheSumOf(...ARange(1,10)));
 
   let arrayToReverse = [1, 2, 3, 4, 5];
 
   function reversedArray(array){
 
       let newArray = [];
-      let arrayN = array.length-1;
-      for (let i = 0; i < array.length; i++) {
-          newArray[i] = array[arrayN];
-          arrayN--;
+      for (let i = array.length-1; i >= 0; i--) {
+          newArray.push(array[i])
       }
       return newArray;
 
   }
 
-  //console.log(reversedArray(arrayToReverse));
+  console.log(reversedArray(arrayToReverse));
 
   function reversedArrayInPlace(array){
 
-    let arrayN = array.length-1;
-    //let counter = Math.floor((array.length-1)/2);
-    let counter = (array.length-1) / 2
-    if (counter % 2 != 0) {
-        counter = counter - 0.5;
-    }
-
+    let counter = (array.length-1)/2;
     for (let i = 0; i < counter; i++) {
-        let copy = array[arrayN];
-        array[arrayN] = array[i];
+        let copy = array[array.length-1-i];
+        array[array.length-1-i] = array[i];
         array[i] = copy;
-        arrayN--;
     }
     return array;
 
@@ -379,3 +372,131 @@ let obj = {here: {is: "an"}, object: 2};
 console.log(DeepCompare(obj, {here: 2, object: 2}));
 
 
+// FUNZIONE PURA - PRENDE UN DATO, RETURN UN DATO, NESSUN CAMBIO DI FLUSSO;
+let firstNumber = 5;
+
+function addOne(number){
+  return number + 1;
+}
+
+let secondNumber = addOne(firstNumber);
+
+console.log(secondNumber);
+
+// SIDE EFFECT - il dato firstNumber è stato modificato.
+
+function addOne(){
+  firstNumber = firstNumber + 1;
+  return firstNumber;
+}
+
+// CON OBJECT - REFERENCE
+
+// let myAccount = {name: "Andrea Asioli", balance: 100};
+
+// function addMoney(moneyToAdd, account){
+//   account.balance = account.balance + moneyToAdd;
+//   return account;
+// }
+
+// let updatedAccount = addMoney(50, myAccount);
+// console.log(updatedAccount);
+
+// SENZA SIDE EFFECT;
+
+// let myAccount1 = {name: "Andrea Asioli", balance: 100};
+
+// function addMoney(moneyToAdd, account){
+//   // let tempAccount = {};
+//   // tempAccount = Object.assign(tempAccount, account);
+//   let tempAccount = {...account};
+
+//   tempAccount.balance = tempAccount.balance + moneyToAdd;
+//   return tempAccount;
+// }
+
+// let updatedAccount1 = addMoney(50, myAccount1);
+// console.log(myAccount1);
+// console.log(updatedAccount1);
+
+// // ARRAY;
+// let array5 = [7, 4, 100, 12];
+
+// function doubleFirstElement(array){
+
+//   // let tempArray = [];
+  
+//   // for (let i = 0; i < array.length; i++) {
+
+//   //   tempArray.push(array[i]);
+    
+//   // }
+
+//   let tempArray = [...array];
+
+//   tempArray[0] = tempArray[0] * 2;
+//   return tempArray;
+// }
+
+// let newArray2 = doubleFirstElement(array5);
+// console.log(array5);
+// console.log(newArray2);
+
+// SHALLOW COPY
+
+let userAndrea = {name: "Andrea Asioli", age: 43};
+let myAccount1 = {user: userAndrea, balance: 100};
+
+
+function ChangeAge(newAge, account) {
+  let tempAccount = JSON.parse(JSON.stringify(account));
+  tempAccount.user.age = newAge;
+  return tempAccount;
+}
+
+let updated = ChangeAge(50, myAccount1);
+console.log(updated);
+console.log(userAndrea);
+
+let pippo = {name: "pippo", city: "Topolinia"};
+
+let pippo1 = pippo;
+
+let pippo2 = {name: "pippo", city: "Topolinia"};
+
+console.log(pippo === pippo2);
+
+// LINKED LIST
+
+let firstLLElement = {value: 5, nextElement: null, previousElement: null};
+
+let secondLLElement = {value: 9, nextElement: null, previousElement: firstLLElement};
+
+firstLLElement.nextElement = secondLLElement;
+
+let thirdLLElement = {value: 8, nextElement: null, previousElement: secondLLElement};
+
+secondLLElement.nextElement = thirdLLElement;
+
+let fourthLLElement = {value: 7, nextElement: null, previousElement: thirdLLElement};
+
+thirdLLElement.nextElement = fourthLLElement;
+
+let node = firstLLElement;
+
+// while (true) {
+//   console.log(node.value);
+
+//   if (node.nextElement != null) {
+//     node = node.nextElement;
+//   }
+//   else
+//   {
+//     break;
+//   }
+// }
+
+while (node !== null) {
+  console.log(node.value);
+  node = node.nextElement;
+}
